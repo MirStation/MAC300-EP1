@@ -6,9 +6,9 @@ Authors:
   
 ## Simple description:
 
-### Part one: Positive-definite systems
+C implementation of all the function below and providing a simple efficiency comparison between the column-oriented functions and their respective row-oriented functions.
 
-C implementation of these functions:
+### Part one: Positive-definite systems
 
   - **int cholcol (int n, double A[][nmax])** : cholesky factorization in column-oriented fashion;
   - **int cholrow (int n, double A[][nmax])** : cholesky factorization in row-oriented fashion;
@@ -23,8 +23,6 @@ C implementation of these functions:
   - **int lurow (int n, double A[][nmax], int p[])** : LU factorization in row-oriented fashion;
   - **int sscol (int n, double A[][nmax], int p[], double b[])** : solve LUx=Pb system in column-oriented fashion;
   - **int ssrow (int n, double A[][nmax], int p[], double b[])** : solve LUx=Pb system in row-oriented fashion.
-
-Do a simple efficiency comparison between the all column-oriented functions and their respective row-oriented functions.
 
 OBS: For more informations about the exercise, read the file ep1.pdf (in protuguese).
 
