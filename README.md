@@ -1,8 +1,8 @@
 # MAC300 - 1st programming exercise
 
 Authors: 
-  António Castro Júnior
-  António Martins Miranda
+  1. António Castro Júnior
+  2. António Martins Miranda
   
 ## Simple description:
 
