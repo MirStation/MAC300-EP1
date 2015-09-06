@@ -1,0 +1,362 @@
+\documentclass[a4paper,11pt]{article} 
+\usepackage{times}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage[top=10mm, bottom=15mm, left=20mm, right=20mm]{geometry}
+\usepackage{multirow}
+\usepackage{hhline}
+
+%% Escrevendo em português
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+\linespread{1.1} 
+
+\newcommand{\sepitem}{\vspace{0.1in}\item} 
+\newcommand{\titulo}{\item \textbf}
+\begin {document}
+\lstset{language=C}
+\small{
+\title{
+{\small 
+Departamento de Ciência da Computação \hfill IME/USP}\\\vspace{0.1in}
+MAC0300 - Métodos Numéricos para Álgebra Linear - 2015/S2
+}
+\vspace{-0.6in} 
+\author{
+  António Martins Miranda (Nº 7644342) \{\textit{amartmiranda@gmail.com}\} \\
+  \and 
+  António Rui Castro Júnior (Nº 5984327) \{\textit{antonio.castro@usp.br}\}
+  \vspace{-0.6in} 
+}
+\date{EP1 - Resolução de Sistemas de Equações Lineares - Relatório}
+\maketitle
+}
+\vspace {-0.3in}
+\thispagestyle{empty}  
+
+\setlength{\parindent}{5ex}
+
+\section{Sistemas definidos positivos}
+
+Para a primeira parte do EP implementamos, de acordo com a exigências do enunciado e na linguagem de programação C, as seguintes funções: 
+\begin{itemize}
+	\item {\bf int cholcol (int n, double A[][nmax])} - implementa a decomposição de Cholesky orientada a colunas;
+	\item {\bf int cholrow (int n, double A[][nmax])} - implementa a decomposição de Cholesky orientada a linhas;	
+	\item {\bf int forwcol (int n, double A[][nmax], double b[])} - resolve um sistema do tipo $Ax=b$, orientado a colunas e usando substituição para frente;
+	\item {\bf int forwrow (int n, double A[][nmax], double b[])} - resolve um sistema do tipo $Ax=b$, orientado a linhas e usando substituição para frente;
+	\item {\bf int backcol (int n, double A[][nmax], double b[], int trans)} - resolve sistemas do tipo $Ax=b$ ou $A^{T}x=b$, orientado a colunas e usando a substituição para trás;
+	\item {\bf int backrow (int n, double A[][nmax], double b[], int trans)} - resolve sistemas do tipo $Ax=b$ ou $A^{T}x=b$, orientado a linhas e usando a substituição para trás.
+\end{itemize}
+As funções cujo nome terminam com {\it col} são orientadas a coluna e as que terminam com {\it row} são orientadas a linha. Para mais detalhes sobre as funções, consultar a primeira parte do enuncidado do ep1.
+
+\subsection{Decomposição de Cholesky}
+
+Pseudocódigo da função {\it cholcol}:
+\begin{lstlisting}
+for j=1 to n
+	for k=1 to j-1
+		for i=j to n /*conhecido por cmod(j,k)*/
+			a_ij = a_ij - a_ik * a_jk	
+		end
+	end
+	if a_jj <= 0 
+		return -1
+	end
+	a_jj = sqrt(a_jj) /*raiz quadrada de a_jj*/
+	for k=j+1 to n /*conhecido por cdiv(j)*/
+		a_kj = a_kj / a_jj
+	end
+end
+return 0
+\end{lstlisting}
+
+\clearpage
+\  \\
+Pseudocódigo da função {\it cholrow}:
+\begin{lstlisting}
+for i=1 to n
+	for j=1 to i-1
+		for k=1 to j-1
+			a_ij = a_ij - a_ik * a_jk	
+		end
+		a_ij = aij / a_jj
+	end
+	for j=1 to i-1
+		a_ii = a_ii - a_ij * a_ij
+	end
+	if a_ii <= 0 
+		return -1
+	end
+	a_ii = sqrt(a_ii) /*raiz quadrada de a_ii*/
+end
+return 0
+\end{lstlisting}
+
+\subsection{Resolução de um sistema $Ax=b$ com substituição para frente}
+
+Pseudocódigo da função {\it forwcol}:
+\begin{lstlisting}
+for j=1 to n
+	if a_jj <= 0 
+		return -1
+	end
+	b_j = b_j / a_jj
+	for i=j+1 to n
+		b_i = b_i - a_ij * b_j
+	end
+end
+return 0
+\end{lstlisting}
+Pseudocódigo da função {\it forwrow}:
+\begin{lstlisting}
+for i=1 to n
+	for j=1 to i-1
+		b_i = b_i - a_ij * b_j
+	end
+	if a_ii <= 0 
+		return -1
+	end
+	b_i = b_i / a_ii
+end
+return 0
+\end{lstlisting}
+
+\subsection{Resolução de um sistema $Ax=b$ (ou $A^{T}x=b$) com substituição para trás}
+
+Pseudocódigo da função {\it backcol}:
+\begin{lstlisting}
+for j=n to 1 /*decremento*/
+	if a_jj == 0
+		return -1
+	end
+	b_j=b_j/a_jj
+	for i=j-1 to 1 /*decremento*/
+		if trans == 1
+			a = a_ji
+		else
+			a = a_ij
+		end
+		b_i=b_i-a*b_j
+	end
+end
+return 0
+\end{lstlisting}
+Pseudocódigo da função {\it backrow}:
+\begin{lstlisting}
+for i=n to 1 /*decremento*/
+	for j=i+1 to n
+		if trans == 1
+			a = a_ji
+		else
+			a = a_ij
+		end
+		b_i=b_i-a*b_j
+	end
+	if a_ii == 0
+		return -1
+	end
+	b_i=b_i/a_ii
+end
+return 0
+\end{lstlisting}
+
+\subsection{Tempos de execução da Decomposição de Cholesky}
+
+\begin{table}[htb]
+	\label{tab:inters}
+	\large
+	\centering
+	\begin{tabular}{|c|c|c|c||c|c|c|}
+		\hline
+		\multirow{3}{*}{PROBLEMA} & \multicolumn{6}{|c|}{DECOMPOSIÇÃO DE CHOLESKY} \\
+		\cline{2-7}
+		& \multicolumn{3}{|c||}{ORIENTADO A LINHA} & \multicolumn{3}{|c|}{ORIENTADO A COLUNA} \\
+		\cline{2-7}
+		& $A=GG^{T}$ & $Gy=b$ & $G^{T}x=y$ & $A=GG^{T}$ & $Gy=b$ & $G^{T}x=y$ \\
+		\hline
+		\hline
+		1 &  &  &  &  &  & \\
+		2 &  &  &  &  &  & \\
+		3 &  &  &  &  &  & \\
+		4 &  &  &  &  &  & \\
+		5 &  &  &  &  &  & \\
+		6 &  &  &  &  &  & \\
+		7 &  &  &  &  &  & \\
+		\hline
+	\end{tabular}
+\end{table}
+\  \\
+{\bf Comentários:} 
+
+Como usamos a linguagem C para programar as funções e nela as matrizes são armazenadas em memória por linha (e em sequência), era esperado que as funções orientadas a linha fossem mais eficiêntes que as funções orientadas a coluna, como podemos verificar pelos resultados da tabela. 
+
+\section{Sistemas Gerais}
+
+De acordo com o enunciado e usando e também usando a linguagem de programação C, implementamos para essa segunda parte as seguintes funções: 
+\begin{itemize}
+	\item {\bf int lucol (int n, double A[][nmax], int p[])} - implementa a decomposição LU orientada a colunas;
+	\item {\bf int lurow (int n, double A[][nmax], int p[])} - implementa a decomposição LU orientada a linhas;	
+	\item {\bf int sscol (int n, double A[][nmax], int p[], double b[])} - resolve um sistema do tipo $LUx=Pb$, orientado a colunas;
+	\item {\bf int ssrow (int n, double A[][nmax], int p[], double b[])} - resolve um sistema do tipo $LUx=Pb$, orientado a linhas.
+\end{itemize}
+Como na primeira parte, as funções cujo nome terminam com {\it col} são orientadas a coluna e as que terminam com {\it row} são orientadas a linha. Para mais detalhes sobre as funções, consultar a segunda parte do enuncidado do ep1.
+
+\subsection{Decomposição LU}
+
+Pseudocódigo da função {\it lucol}:
+\begin{lstlisting}
+for k=1 to n-1
+	imax=k
+	for i=k+1 to n
+		if (|a_ik| > |a_imax,k|)
+			imax=i
+		end
+		p(k)=imax /*p(k) vetor permutacao*/
+	end
+	if p(k)!=k
+		for j=1 to n
+			tmp=a_kj
+			a_kj=a_p(k),j
+			a_p(k),j=tmp
+		end
+	end
+	if a_kk == 0
+		return -1
+	end
+	for i=k+1 to n
+		a_ik=a_ik / a_kk
+	end
+	for j=k+1 to n
+		for i=k+1 to n
+			a_ij=a_ij-a_kj*a_ik
+		end
+	end
+	if a_nn == 0
+		return -1
+	end
+end
+return 0
+\end{lstlisting}
+Pseudocódigo da função {\it lurow}:
+\begin{lstlisting}
+for k=1 to n-1
+	imax=k
+	for i=k+1 to n
+		if (|a_ik| > |a_imax,k|)
+			imax=i
+		end
+		p(k)=imax /*p(k) vetor permutacao*/
+	end
+	if p(k)!=k
+		for j=1 to n
+			tmp=a_kj
+			a_kj=a_p(k),j
+			a_p(k),j=tmp
+		end
+	end
+	if a_kk == 0
+		return -1
+	end
+	for i=k+1 to n
+		a_ik=a_ik / a_kk
+		for j=k+1 to n
+			a_ij=a_ij-a_kj*a_ik
+		end
+	end
+	if a_nn == 0
+		return -1
+	end
+end
+return 0
+\end{lstlisting}
+
+\subsection{Resolução de um sistema $LUx=Pb$}
+
+Pseudocódigo da função {\it sscol}:
+\begin{lstlisting}
+for i=1 to n-1
+	tmp=b_i
+	b_i=b_p(i) /*p(i) vetor permutacao*/
+	b_p(i)=tmp
+end
+for j=1 to n
+	for i=j+1 to n
+		b_i=b_i-a_ij*b_j
+	end
+end
+for j=n to 1 /*decremento*/
+	if a_jj == 0
+		return -1
+	end
+	b_j=b_j/a_jj
+	for i=1 to j-1
+		b_i=b_i-a_ij*b_j
+	end
+end
+return 0
+\end{lstlisting}
+Pseudocódigo da função {\it ssrow}:
+\begin{lstlisting}
+for i=1 to n-1
+	tmp=b_i
+	b_i=b_p(i) /*p(i) vetor permutacao*/
+	b_p(i)=tmp
+end
+for i=1 to n
+	for j=1 to i-1
+		b_i=b_i-a_ij*b_j
+	end
+end
+for i=n to 1 /*decremento*/
+	if a_ii == 0
+		return -1
+	end
+	for j=i+1 to n
+		b_i=b_i-a_ij*b_j
+	end
+	b_i=b_i/a_ii
+end
+return 0
+\end{lstlisting}
+
+\clearpage
+
+\subsection{Tempos de execução da Decomposição LU}
+
+\begin{table}[htb]
+	\label{tab:inters}
+	\large
+	\centering
+	\begin{tabular}{|c|c|c||c|c|}
+		\hline
+		\multirow{3}{*}{PROBLEMA} & \multicolumn{4}{|c|}{DECOMPOSIÇÃO LU} \\
+		\cline{2-5}
+		& \multicolumn{2}{|c||}{ORIENTADO A LINHA} & \multicolumn{2}{|c|}{ORIENTADO A COLUNA} \\
+		\cline{2-5}
+		& $PA=LU$ & $LUx=Pb$ & $PA=LU$ & $LUx=Pb$ \\
+		\hline
+		\hline
+		1 &  &  &  &\\
+		2 &  &  &  &\\
+		3 &  &  &  &\\
+		4 &  &  &  &\\
+		5 &  &  &  &\\
+		6 &  &  &  &\\
+		7 &  &  &  &\\
+		\hline
+	\end{tabular}
+\end{table}
+\  \\
+{\bf Comentários:}
+
+Como podemos verificar, as funções orientadas a linha são mais eficiêntes que as funções orientadas a coluna, visto que C é uma linguagem que armazena matrizes na memória por linha (e em sequência). 
+
+Pelo pseudocódigo da decomposição de Cholesky verificamos que a ela é constituída por uma operação de custo $O(\frac{n^{2}}{2})$ ({\it cdiv}) e outra de custo $O(n^{3})$ ({\it cmod}), enquanto que a decomposição LU é constituída por uma operação de custo $O(n^{2})$ (permutação da linha que contém o elemento máximo em módulo com a linha do pivot), uma operação de custo $O(\frac{n^{2}}{2})$ (escolha do elemento máximo em módulo na coluna do pivot e abiaxo dele) e uma operação de custo $O(n^{3})$ (zerar os elementos abaixo do pivot usando operações elementares e armazenar essas operações nas posições zeradas). Logo, é natural que a decomposição LU seja mais custosa e aproximadamente o dobro da decomposição de Cholesky($2 \times O(n^{3}+\frac{n^{2}}{2}) \approx O(n^{3}+n^{2}) \approx O(n^{3}+\frac{3n^{2}}{2}) $). 
+
+\vfill
+
+\raggedleft
+{\sc Setembro/2015}
+
+\end{document}
