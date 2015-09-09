@@ -7,5 +7,40 @@ double diff_t_s(struct timespec start_t, struct timespec end_t){
 }
 
 void input_handler(char** argv, int* n, double*** A, double** b){
-  /*To be implemented*/
+  int i, j, k, n_2;
+  double v;
+  scanf("%d\n", n);
+  n_2 = (*n) * (*n);
+  *A = (double**) malloc((*n) * sizeof(double*));
+  assert(*A);
+  for(k = 0; k < (*n); k++){
+    (*A)[k] = (double*) calloc(*n, sizeof(double));
+    assert((*A)[k]);
+  }
+  *b = (double*) malloc((*n) * sizeof(double));
+  assert(*b);
+  for(k = 0; k < n_2; k++){
+    scanf("%d %d %lf\n", &i, &j, &v);
+    (*A)[i][j] = v;
+  }
+  for(k = 0; k < (*n); k++){
+    scanf("%d %lf\n", &i, &v);
+    (*b)[i] = v;
+  }
+
+  /*DEBUG
+  printf("n:\n %d\n", *n);
+  puts("A:");
+  for(i = 0; i < *n; i++){
+    for(j = 0; j < *n; j++){
+      printf(" %.20e", (*A)[i][j]);
+    }
+    putchar('\n');
+  }
+  puts("b:");
+  for(i = 0; i < *n; i++){
+    printf(" %.20e", (*b)[i]);
+  }
+  putchar('\n');
+  */
 }

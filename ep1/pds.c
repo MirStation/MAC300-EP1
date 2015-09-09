@@ -3,10 +3,9 @@
 
 /*Positives Definites Systems*/
 int main(int argc, char** argv){
-  int n;
   double** A;
   double* b;
-  int res;
+  int res, n, i;
 
   input_handler(argv,&n,&A,&b);
 
@@ -55,5 +54,11 @@ int main(int argc, char** argv){
   printf("backrow(trans=1):\n  result: %d\n  time: %f\n",res,diff_t_s(start_t,end_t));
   */
   
+  for(i = 0; i < n; i++){
+    free(A[i]);
+  }
+  free(A);
+  free(b);
+
   return 0;
 }
