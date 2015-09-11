@@ -1,5 +1,5 @@
 # Makefile
-FLAGS = -g -Wall -ansi -pedantic -lm -O3 -std=gnu99
+FLAGS = -g -Wall -std=gnu99 -pedantic -lm -O3
 TARGETS = gs pds
 OBJECTS = gs.o pds.o help.o sle.o
 
