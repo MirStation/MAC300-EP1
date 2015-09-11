@@ -20,12 +20,13 @@ int main(int argc, char** argv){
   clock_gettime(CLOCK_REALTIME, &end_t);
   printf("cholcol:\n  result: %d\n  time: %f\n",res,diff_t_s(start_t,end_t));
   
-  /*
+  /* TEST: OK */
   clock_gettime(CLOCK_REALTIME, &start_t);
   res=forwcol(n, A_col, &b_col);
   clock_gettime(CLOCK_REALTIME, &end_t);
   printf("forwcol:\n  result: %d\n  time: %f\n",res,diff_t_s(start_t,end_t));
 
+  /*
   clock_gettime(CLOCK_REALTIME, &start_t);
   res=backcol(n, A_col, &b_col, 0);
   clock_gettime(CLOCK_REALTIME, &end_t);
@@ -84,6 +85,12 @@ int main(int argc, char** argv){
     putchar('\n');
   }
   */
+
+  puts("b_col:");
+  for(i = 0; i < n; i++){
+    printf(" %lf", b_col[i]);
+  }
+  putchar('\n');
   
   for(i = 0; i < n; i++){
     free(A_col[i]);

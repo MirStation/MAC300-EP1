@@ -46,7 +46,16 @@ int cholrow(int n, double*** A){
 }
 
 int forwcol(int n, double** A, double** b){
-  /*To be implemented*/
+  int i,j;
+  for(j = 0; j < n; j++){
+    if(A[j][j] <= 0){
+      return -1;
+    }
+    (*b)[j] = (*b)[j] / A[j][j];
+    for(i = j + 1; i < n; i++){
+      (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
+    }
+  }  
   return 0;
 }
 
