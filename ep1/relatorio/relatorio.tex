@@ -126,37 +126,51 @@ return 0
 
 Pseudocódigo da função {\it backcol}:
 \begin{lstlisting}
-for j=n to 1 /*decremento*/
-	if a_jj == 0
-		return -1
-	end
-	b_j=b_j/a_jj
-	for i=j-1 to 1 /*decremento*/
-		if trans == 1
-			a = a_ji
-		else
-			a = a_ij
+if trans == 1
+	for i=n to 1 /*decremento*/
+		for j=i+1 to n
+			b_i=b_i-a_ji*b_j
 		end
-		b_i=b_i-a*b_j
+		if a_ii == 0
+			return -1
+		end
+		b_i=b_i/a_ii
+	end
+else
+	for j=n to 1 /*decremento*/
+		if a_jj == 0
+			return -1
+		end
+		b_j=b_j/a_jj
+		for i=j-1 to 1 /*decremento*/
+			b_i=b_i-a_ij*b_j
+		end
 	end
 end
 return 0
 \end{lstlisting}
 Pseudocódigo da função {\it backrow}:
 \begin{lstlisting}
-for i=n to 1 /*decremento*/
-	for j=i+1 to n
-		if trans == 1
-			a = a_ji
-		else
-			a = a_ij
+if trans == 1
+	for j=n to 1 /*decremento*/
+		if a_jj == 0
+			return -1
 		end
-		b_i=b_i-a*b_j
+		b_j=b_j/a_jj
+		for i=j-1 to 1 /*decremento*/
+			b_i=b_i-a_ji*b_j
+		end
 	end
-	if a_ii == 0
-		return -1
+else
+	for i=n to 1 /*decremento*/
+		for j=i+1 to n
+			b_i=b_i-a_ij*b_j
+		end
+		if a_ii == 0
+			return -1
+		end
+		b_i=b_i/a_ii
 	end
-	b_i=b_i/a_ii
 end
 return 0
 \end{lstlisting}
@@ -319,8 +333,6 @@ for i=n to 1 /*decremento*/
 end
 return 0
 \end{lstlisting}
-
-\clearpage
 
 \subsection{Tempos de execução da Decomposição LU}
 
