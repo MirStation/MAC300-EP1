@@ -44,3 +44,44 @@ void input_handler(char** argv, int* n, double*** A, double** b){
   putchar('\n');
   */
 }
+
+double** sq_matrix_cpy(int n, double** src_matrix){
+  int i;
+  double** dest_matrix;
+  dest_matrix = (double**) malloc(n * sizeof(double*));
+  assert(dest_matrix);
+  for(i = 0; i < n; i++){
+    dest_matrix[i] = (double*) calloc(n, sizeof(double));
+    assert(dest_matrix[i]);
+    memcpy(dest_matrix[i], src_matrix[i], n*sizeof(double));
+  }
+
+  /*DEBUG
+  puts("dest_matrix:");
+  for(i = 0; i < n; i++){
+    for(j = 0; j < n; j++){
+      printf(" %lf", dest_matrix[i][j]);
+    }
+    putchar('\n');
+  }
+  putchar('\n');
+  */
+  
+  return dest_matrix;
+}
+
+double* array_cpy(int n, double* src_array){
+  double* dest_array = (double*) calloc(n, sizeof(double));
+  assert(dest_array);
+  memcpy(dest_array, src_array, n*sizeof(double));
+
+  /*DEBUG
+  puts("dest_array:");
+  for(i = 0; i < n; i++){
+    printf(" %lf", dest_array[i]);
+  }
+  putchar('\n');
+  */
+  
+  return dest_array;
+}
