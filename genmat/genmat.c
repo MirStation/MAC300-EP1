@@ -1,10 +1,10 @@
 // Gerador de sistemas de equacoes lineares Ax=b de dimensao n
 // com solucao x tal que x_i = 1+i%(n/100), i=0, ..., n-1.
 
-// Para gerar as os arquivos a1.dat, a2.dat, ..., a7.dat escolha
+// Para gerar os arquivos a1.dat, a2.dat, ..., a7.dat escolha
 // esses nomes com dimensoes 100, 200, ..., 700, respectivamente.
 
-// Para gerar o arquivo a8.dat subsitua o laco
+// Para gerar o arquivo a8.dat substitua o laco
 
 //  for (i=0; i<n; i++)
 //    for (j=0; j<n; j++)
@@ -21,7 +21,7 @@
 //        fprintf(fp,"\n%3d %3d % .20e",i,j,M[i][j]);
 
 // e para gerar o arquivo a9.dat troque o "n/2" por "n-1".
-// Em ambos casos escolha n=700. O que estara fazendo sera gerar
+// Em ambos os casos escolha n = 700. O que estara fazendo sera gerar
 // matrizes cujas linhas n/2 e n-1, respectivamente, serao copia
 // da linha 0, i.e., matrizes singulares.
 
@@ -39,20 +39,20 @@ int main()
   char filename[100];
 
   // Aloca a memoria para a matriz M
-  
-  double**M = (double**) malloc(sizeof(double*)*nmax);
+
+  double **M = (double**) malloc(sizeof(double*)*nmax);
   assert(M);
   for(i=0; i<nmax; i++){
     M[i] = (double*) malloc(sizeof(double)*nmax);
     assert(M[i]);
   }
-  
+
   // Dimensao.
 
   printf("\nn= ");
   scanf("%d",&n);
 
-  // Arquivo de saida. 
+  // Arquivo de saida.
 
   printf("\nOutput file name= ");
   scanf("%s", filename);
@@ -103,11 +103,11 @@ int main()
   fclose(fp);
 
   // Libera a memoria alocada para a matriz M
-  
+
   for(i=0; i<nmax; i++){
     free(M[i]);
   }
   free(M);
-  
+
   return 0;
 }
