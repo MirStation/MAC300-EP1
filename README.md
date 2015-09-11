@@ -1,9 +1,9 @@
 # MAC300 - 1st programming exercise
 
-Authors: 
+Authors:
   1. António Castro Júnior
   2. António Martins Miranda
-  
+
 ## Simple description:
 
 C implementation of all the function below and providing a simple efficiency comparison between the column-oriented functions and their respective row-oriented functions.
@@ -24,6 +24,4 @@ C implementation of all the function below and providing a simple efficiency com
   - **int sscol (int n, double A[][nmax], int p[], double b[])** : solve LUx=Pb system in column-oriented fashion;
   - **int ssrow (int n, double A[][nmax], int p[], double b[])** : solve LUx=Pb system in row-oriented fashion.
 
-**OBS:** For more informations about the exercise, read the file ep1.pdf (in protuguese).
-
-
+**OBS:** For more informations about the exercise, read the files ep1.pdf (in portuguese) and relatorio.pdf (inside the folder relatorio and in portuguese).
