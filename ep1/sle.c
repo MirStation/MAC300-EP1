@@ -56,7 +56,7 @@ int forwcol(int n, double** A, double** b){
     for(i = j + 1; i < n; i++){
       (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
     }
-  }  
+  }
   return 0;
 }
 
@@ -71,7 +71,7 @@ int backcol(int n, double** A, double** b, int trans){
 
     if (trans  == 1) {
         for (i = n - 1; i >= 0; i--){
-            for (j = i + 1; j < n; j++)
+            for (j = i + 1; j < n; j++) /*duvida no indice j = i + 1*/
                 (*b)[i] = (*b)[i] - A[j][i] * (*b)[j];
 
             if (A[i][i] == 0) return -1;
@@ -109,7 +109,7 @@ int backrow(int n, double** A, double** b, int trans){
     }
     else{
         for (i = n - 1; i >= 0; i--){
-            for (j = i + 1; j < n; j++)
+            for (j = i + 1; j < n; j++) /*duvida no indice j = i + 1*/
                 (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
 
             if (A[i][i] == 0) return -1;
@@ -184,7 +184,7 @@ int sscol(int n, double** A, int* p, double** b){
 
         (*b)[j] = (*b)[j] / A[j][j];
 
-        for (i = 0; i < (j - 1); i++)
+        for (i = 0; i < j; i++)
             (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
     }
 
@@ -203,12 +203,12 @@ int ssrow(int n, double** A, int* p, double** b){
     }
 
     for (i = 0; i < n; i++)
-        for (j = 0; j < (i - 1); j++)
+        for (j = 0; j < i; j++)
             (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
 
     for (i = n - 1; i >= 0; i--) {
         if (A[i][i] == 0) return -1;
-        for (j = i + 1; j < n; j++)
+        for (j = i + 1; j < n; j++) /*duvida no indice j = i + 1*/
             (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
         (*b)[i] = (*b)[i] / A[i][i];
     }
