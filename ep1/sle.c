@@ -56,7 +56,7 @@ int forwcol(int n, double** A, double** b){
     for(i = j + 1; i < n; i++){
       (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
     }
-  }  
+  }
   return 0;
 }
 
@@ -169,7 +169,38 @@ int lucol(int n, double*** A, int** p){
 }
 
 int lurow(int n, double*** A, int** p){
-  /*To be implemented*/
+
+    int i, j, k;
+    int tmp, imax;
+
+    for (k = 0; k < (n - 1); n++){
+        imax = k;
+
+        for (i = k + 1; i < n; i++){
+            if (abs((*A)[i][k]) > abs((*A)[imax][k]))
+                imax = i;
+            (*p)[k] = imax;
+        }
+
+        if ((*p)[k] != k){
+            for (j = 0; j < n; j++){
+                tmp = (*A)[k][j];
+                (*A)[k][j] = (*A)[(*p)[k]][j];
+                (*A)[(*p)[k]][j] = tmp;
+            }
+        }
+
+        if ((*A)[k][k] == 0) return -1;
+
+        for (i = k + 1; i < n; i++){
+            (*A)[i][k] = (*A)[i][k] / (*A)[k][k];
+            for (j = k + 1; j < n; j++)
+                (*A)[i][j] = (*A)[i][j] - (*A)[k][j] * (*A)[i][k];
+        }
+
+        if ((*A)[n-1][n-1] == 0) return -1;
+    }
+
   return 0;
 }
 
