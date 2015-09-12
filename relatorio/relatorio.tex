@@ -98,7 +98,7 @@ return 0
 Pseudocódigo da função {\it forwcol}:
 \begin{lstlisting}
 for j=1 to n
-	if a_jj <= 0 
+	if a_jj == 0 
 		return -1
 	end
 	b_j = b_j / a_jj
@@ -114,7 +114,7 @@ for i=1 to n
 	for j=1 to i-1
 		b_i = b_i - a_ij * b_j
 	end
-	if a_ii <= 0 
+	if a_ii == 0 
 		return -1
 	end
 	b_i = b_i / a_ii
@@ -190,20 +190,20 @@ return 0
 		& $A=GG^{T}$ & $Gy=b$ & $G^{T}x=y$ & $A=GG^{T}$ & $Gy=b$ & $G^{T}x=y$ \\
 		\hline
 		\hline
-		1 &  &  &  &  &  & \\
-		2 &  &  &  &  &  & \\
-		3 &  &  &  &  &  & \\
-		4 &  &  &  &  &  & \\
-		5 &  &  &  &  &  & \\
-		6 &  &  &  &  &  & \\
-		7 &  &  &  &  &  & \\
+		1 & $0.000250$ & $0.000008$ & $0.000009$ & $0.000324$ & $0.000012$ & $0.000010$ \\
+		2 & $0.001710$ & $0.000030$ & $0.000026$ & $0.002558$ & $0.000065$ & $0.000029$ \\
+		3 & $0.005273$ & $0.000052$ & $0.000056$ & $0.008853$ & $0.000093$ & $0.000061$ \\
+		4 & $0.012468$ & $0.000091$ & $0.000098$ & $0.026486$ & $0.000198$ & $0.000141$ \\
+		5 & $0.025155$ & $0.000146$ & $0.000159$ & $0.078277$ & $0.000555$ & $0.000417$ \\
+		6 & $0.043325$ & $0.000210$ & $0.000228$ & $0.175645$ & $0.000910$ & $0.000690$ \\
+		7 & $0.069355$ & $0.000299$ & $0.000333$ & $0.321707$ & $0.001727$ & $0.001053$ \\
 		\hline
 	\end{tabular}
 \end{table}
 \  \\
 {\bf Comentários:} 
 
-Como usamos a linguagem C para programar as funções e nela as matrizes são armazenadas em memória por linha (e em sequência), era esperado que as funções orientadas a linha fossem mais eficiêntes que as funções orientadas a coluna, como podemos verificar pelos resultados da tabela. 
+Como usamos a linguagem C para programar as funções e nela as matrizes são armazenadas em memória por linha (e em sequência), era esperado que as funções orientadas a linha fossem mais eficiêntes que as funções orientadas a coluna, como podemos verificar pelos resultados da tabela. Calculamos os tempos no {\it cygwin}, instalado numa máquina (64 bits) com 8 Gb de memória RAM e um processador Intel Core 2 Duo de 2.80 GHz. 
 
 \section{Sistemas Gerais}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.5.17)  11 SEP 2015 05:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.5.17)  11 SEP 2015 21:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -376,8 +376,11 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-))
-No file relatorio.aux.
+)) (./relatorio.aux
+
+LaTeX Warning: Label `tab:inters' multiply defined.
+
+)
 \openout1 = `relatorio.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -393,7 +396,7 @@ LaTeX Font Info:    ... okay on input line 17.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 17.
-(c:/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+ (c:/texlive/2014/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 \c@lstlisting=\count111
@@ -468,13 +471,13 @@ LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
 
 ] [3] [4] [5] [6] (./relatorio.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3905 strings out of 493109
- 49414 string characters out of 6138587
- 155628 words of memory out of 5000000
+ 3907 strings out of 493109
+ 49442 string characters out of 6138587
+ 156677 words of memory out of 5000000
  7331 multiletter control sequences out of 15000+600000
  25128 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -490,7 +493,7 @@ cmr10.pfb><c:/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
 -dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2014/texmf-dist/fon
 ts/type1/urw/times/utmb8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/times
 /utmr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on relatorio.pdf (6 pages, 130501 bytes).
+Output written on relatorio.pdf (6 pages, 133331 bytes).
 PDF statistics:
  72 PDF objects out of 1000 (max. 8388607)
  51 compressed objects within 1 object stream
