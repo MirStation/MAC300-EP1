@@ -226,8 +226,8 @@ for k=1 to n-1
 		if (|a_ik| > |a_imax,k|)
 			imax=i
 		end
-		p(k)=imax /*p(k) vetor permutacao*/
 	end
+	p(k)=imax /*p(k) vetor permutacao*/
 	if p(k)!=k
 		for j=1 to n
 			tmp=a_kj
@@ -260,8 +260,8 @@ for k=1 to n-1
 		if (|a_ik| > |a_imax,k|)
 			imax=i
 		end
-		p(k)=imax /*p(k) vetor permutacao*/
 	end
+	p(k)=imax /*p(k) vetor permutacao*/
 	if p(k)!=k
 		for j=1 to n
 			tmp=a_kj
@@ -304,7 +304,7 @@ for j=n to 1 /*decremento*/
 		return -1
 	end
 	b_j=b_j/a_jj
-	for i=1 to j-1
+	for i=j-1 to 1 /*decremento*/
 		b_i=b_i-a_ij*b_j
 	end
 end
