@@ -134,37 +134,44 @@ int backrow(int n, double** A, double** b, int trans){
 
 int lucol(int n, double*** A, int** p){
 
-    int k, i, j;
-    int imax, tmp;
-
-    for (k = 0; k < (n - 1); k++){
-        imax = k;
-        for (i = k+1; i < n; i++){
-            if (abs((*A)[i][k]) > abs((*A)[imax][k]))
-                imax = i;
-            (*p)[k] = imax;
-        }
-
-        if ((*p)[k] != k) {
-            for (j = 0; j < n; j++){
-                tmp = (*A)[k][j];
-                (*A)[k][j] = (*A)[(*p)[k]][j];
-                (*A)[(*p)[k]][j] = tmp;
-            }
-        }
-
-        if ((*A)[k][k] == 0) return -1;
-
-        for (i = k+1; i < n; i++)
-            (*A)[i][k] = (*A)[i][k] / (*A)[k][k];
-
-        for (j = k + 1; j < n; j++)
-            for (i = k + 1; i < n; i++)
-                (*A)[i][j] = (*A)[i][j] - (*A)[k][j] * (*A)[i][k];
-
-        if ((*A)[n-1][n-1] == 0) return -1;
+  int k, i, j, imax, itmp;
+  double tmp;
+  
+  for (k = 0; k < (n - 1); k++){
+    imax = k;
+    for (i = k+1; i < n; i++){
+      if (fabs((*A)[i][k]) > fabs((*A)[imax][k])){
+	imax = i;
+      }
     }
-
+    
+    itmp = (*p)[k]; 
+    (*p)[k] = imax;
+    (*p)[imax] = itmp;
+    
+    if ((*p)[k] != k) {
+      for (j = 0; j < n; j++){
+	tmp = (*A)[k][j];
+	(*A)[k][j] = (*A)[(*p)[k]][j];
+	(*A)[(*p)[k]][j] = tmp;
+      }
+    }
+    
+    if ((*A)[k][k] == 0) return -1;
+    
+    for (i = k+1; i < n; i++){
+      (*A)[i][k] = (*A)[i][k] / (*A)[k][k];
+    }
+    
+    for (j = k + 1; j < n; j++){
+      for (i = k + 1; i < n; i++){
+	(*A)[i][j] = (*A)[i][j] - (*A)[k][j] * (*A)[i][k];
+      }
+    }
+    
+    if ((*A)[n-1][n-1] == 0) return -1;
+  }
+  
   return 0;
 }
 
@@ -207,7 +214,7 @@ int lurow(int n, double*** A, int** p){
 int sscol(int n, double** A, int* p, double** b){
 
     int i, j;
-    int tmp;
+    double tmp;
 
     for (i = 0; i < (n - 1); i++){
         tmp = (*b)[i];
@@ -215,18 +222,36 @@ int sscol(int n, double** A, int* p, double** b){
         (*b)[p[i]] = tmp;
     }
 
+    /*
+    for(i = 0; i < n; i++){
+      printf("b[%d] = %lf\n",i,(*b)[i]);
+    }
+    */
+    
     for (j = 0; j < n; j++)
         for (i = j + 1; i < n; i++)
             (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
 
-    for (j = n - 1; j >= 0; j--){
-        if (A[j][j] == 0) return -1;
-
-        (*b)[j] = (*b)[j] / A[j][j];
-
-        for (i = 0; i < (j - 1); i++)
-            (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
+    /*
+    for(i = 0; i <n; i++){
+      printf("*b[%d] = %lf\n", i, (*b)[i]);
     }
+    */
+    
+    for (j = n - 1; j >= 0; j--){
+      if (A[j][j] == 0) return -1;
+      
+      (*b)[j] = (*b)[j] / A[j][j];
+      
+      for (i = j - 1; i >= 0; i--)
+	(*b)[i] = (*b)[i] - A[i][j] * (*b)[j];
+    }
+    
+    /*
+    for(i = 0; i <n; i++){
+      printf("**b[%d] = %lf\n", i, (*b)[i]);
+    }
+    */
 
   return 0;
 }
@@ -234,14 +259,14 @@ int sscol(int n, double** A, int* p, double** b){
 int ssrow(int n, double** A, int* p, double** b){
 
     int i, j;
-    int tmp;
+    double tmp;
 
     for (i = 0; i < (n - 1); i++){
         tmp = (*b)[i];
         (*b)[i] = (*b)[p[i]];
         (*b)[p[i]] = tmp;
     }
-
+    
     for (i = 0; i < n; i++)
         for (j = 0; j < (i - 1); j++)
             (*b)[i] = (*b)[i] - A[i][j] * (*b)[j];

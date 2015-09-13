@@ -7,7 +7,7 @@ int main(int argc, char** argv){
   double *b_col, *b_row;
   int res, n, i;
 
-  input_handler(argv,&n,&A_col,&b_col);
+  input_handler(&n,&A_col,&b_col);
 
   A_row = sq_matrix_cpy(n, A_col);
   b_row = array_cpy(n, b_col);

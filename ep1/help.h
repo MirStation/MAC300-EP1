@@ -15,7 +15,7 @@ struct timespec start_t;
 struct timespec end_t;
 
 double diff_t_s(struct timespec start_t, struct timespec end_t);
-void input_handler(char** argv, int* n, double*** A, double** b);
+void input_handler(int* n, double*** A, double** b);
 double** sq_matrix_cpy(int n, double** src_matrix);
 double* array_cpy(int n, double* src_array);
 
