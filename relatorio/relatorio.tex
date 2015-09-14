@@ -349,20 +349,20 @@ return 0
 		& $PA=LU$ & $LUx=Pb$ & $PA=LU$ & $LUx=Pb$ \\
 		\hline
 		\hline
-		1 &  &  &  &\\
-		2 &  &  &  &\\
-		3 &  &  &  &\\
-		4 &  &  &  &\\
-		5 &  &  &  &\\
-		6 &  &  &  &\\
-		7 &  &  &  &\\
+		1 & $0.000478$ & $0.000020$ & $0.000648$ & $0.000023$ \\
+		2 & $0.003653$ & $0.000072$ & $0.004695$ & $0.000077$ \\
+		3 & $0.011509$ & $0.000168$ & $0.024716$ & $0.000188$ \\
+		4 & $0.027829$ & $0.000418$ & $0.087417$ & $0.000441$ \\
+		5 & $0.055414$ & $0.001359$ & $0.229434$ & $0.001574$ \\
+		6 & $0.093878$ & $0.002135$ & $0.449888$ & $0.002238$ \\
+		7 & $0.152274$ & $0.003061$ & $0.781473$ & $0.003559$ \\
 		\hline
 	\end{tabular}
 \end{table}
 \  \\
 {\bf Comentários:}
 
-Como podemos verificar, as funções orientadas a linha são mais eficiêntes que as funções orientadas a coluna, visto que C é uma linguagem que armazena matrizes na memória por linha (e em sequência). 
+Como podemos verificar, as funções orientadas a linha são mais eficiêntes que as funções orientadas a coluna, visto que C é uma linguagem que armazena matrizes na memória por linha (e em sequência).  Para esta parte também calculamos os tempos no {\it cygwin}, instalado numa máquina (64 bits) com 8 Gb de memória RAM e um processador Intel Core 2 Duo de 2.80 GHz. 
 
 Pelo pseudocódigo da decomposição de Cholesky verificamos que a ela é constituída por uma operação de custo $O(\frac{n^{2}}{2})$ ({\it cdiv}) e outra de custo $O(n^{3})$ ({\it cmod}), enquanto que a decomposição LU é constituída por uma operação de custo $O(n^{2})$ (permutação da linha que contém o elemento máximo em módulo com a linha do pivot), uma operação de custo $O(\frac{n^{2}}{2})$ (escolha do elemento máximo em módulo na coluna do pivot e abiaxo dele) e uma operação de custo $O(n^{3})$ (zerar os elementos abaixo do pivot usando operações elementares e armazenar essas operações nas posições zeradas). Logo, é natural que a decomposição LU seja mais custosa e aproximadamente o dobro da decomposição de Cholesky($2 \times O(n^{3}+\frac{n^{2}}{2}) \approx O(n^{3}+n^{2}) \approx O(n^{3}+\frac{3n^{2}}{2}) $). 
 

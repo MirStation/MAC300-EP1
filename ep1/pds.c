@@ -13,7 +13,6 @@ int main(int argc, char** argv){
   b_row = array_cpy(n, b_col);
 
   /*Column*/
-  
   clock_gettime(CLOCK_REALTIME, &start_t);
   res=cholcol(n, &A_col);
   clock_gettime(CLOCK_REALTIME, &end_t);
@@ -38,7 +37,6 @@ int main(int argc, char** argv){
   }
   
   /*Row*/
-
   clock_gettime(CLOCK_REALTIME, &start_t);
   res=cholrow(n, &A_row);
   clock_gettime(CLOCK_REALTIME, &end_t);
@@ -62,38 +60,7 @@ int main(int argc, char** argv){
     }
   }
 
-  /* DEBUG   
-  puts("A_col:");
-  for(i = 0; i < n; i++){
-    for(j = 0; j < n; j++){
-      printf(" %lf", A_col[i][j]);
-    }
-    putchar('\n');
-  }
-  
-  puts("A_row:");
-  for(i = 0; i < n; i++){
-    for(j = 0; j < n; j++){
-      printf(" %lf", A_row[i][j]);
-    }
-    putchar('\n');
-  }
-  
-  puts("b_col:");
-  for(i = 0; i < n; i++){
-    printf(" %lf", b_col[i]);
-  }
-  putchar('\n');
-  
-  puts("b_row:");
-  for(i = 0; i < n; i++){
-    printf(" %lf", b_row[i]);
-  }
-  putchar('\n');
-  */
-
   /*Releasing memory*/
-  
   for(i = 0; i < n; i++){
     free(A_col[i]);
     free(A_row[i]);
