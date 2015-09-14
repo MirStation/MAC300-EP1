@@ -7,26 +7,32 @@ double diff_t_s(struct timespec start_t, struct timespec end_t){
 }
 
 void input_handler(int* n, double*** A, double** b){
-  int i, j, k, n_2;
-  double v;
-  scanf("%d\n", n);
-  n_2 = (*n) * (*n);
-  *A = (double**) malloc((*n) * sizeof(double*));
-  assert(*A);
-  for(k = 0; k < (*n); k++){
-    (*A)[k] = (double*) calloc(*n, sizeof(double));
-    assert((*A)[k]);
-  }
-  *b = (double*) malloc((*n) * sizeof(double));
-  assert(*b);
-  for(k = 0; k < n_2; k++){
-    scanf("%d %d %lf\n", &i, &j, &v);
-    (*A)[i][j] = v;
-  }
-  for(k = 0; k < (*n); k++){
-    scanf("%d %lf\n", &i, &v);
-    (*b)[i] = v;
-  }
+    int i, j, k, n_2;
+    double v;
+
+    if (scanf("%d\n", n) == 1){
+        n_2 = (*n) * (*n);
+        *A = (double**) malloc((*n) * sizeof(double*));
+        assert(*A);
+
+        for(k = 0; k < (*n); k++){
+            (*A)[k] = (double*) calloc(*n, sizeof(double));
+            assert((*A)[k]);
+        }
+
+        *b = (double*) malloc((*n) * sizeof(double));
+        assert(*b);
+
+        for(k = 0; k < n_2; k++){
+            if (scanf("%d %d %lf\n", &i, &j, &v) == 3)
+                (*A)[i][j] = v;
+        }
+
+        for(k = 0; k < (*n); k++){
+            if (scanf("%d %lf\n", &i, &v) == 2)
+                (*b)[i] = v;
+        }
+    }
 }
 
 double** sq_matrix_cpy(int n, double** src_matrix){
